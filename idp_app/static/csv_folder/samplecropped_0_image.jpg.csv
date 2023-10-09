@@ -1,0 +1,8 @@
+,0,1,2,3
+0,Earnings,Amount,Deductions,Amount
+1,Basic Pay,5000,Provident Fund,1000
+2,Incentive Pay,800,Professional Tax,800
+3,House Rent Allowance,500,Loan,500
+4,Meal Allowance,200,,
+5,Total Earnings,6500,Total Deductions,2300
+6,,,Net Pay,4200

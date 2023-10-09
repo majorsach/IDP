@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {% load static %}
+        <title>Process Documents</title>
+
+        <script src="{% static 'upload.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="navbar-content">
+                <div class="logo">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo-image">
+                </div>
+                <div class="nav-links">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/process" class="nav-link active">Process Documents</a>
+                    <a href="/dashboard" class="nav-link">Master Document</a>
+                    <a href="/training" class="nav-link">Training</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="content">
+                <h1>Processing Documents</h1>
+                <p>Upload your document to start the processing</p>
+                <div class="card">
+                    <h3>Upload Files</h3>
+                    <form
+                        id="upload-form"
+                        action="{% url 'process_documents' %}"
+                        method="post"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="drop_box">
+                            <header>
+                                <h4>Select File here</h4>
+                            </header>
+                            <p>Files Supported: PDF, JPEG ,JPG, PNG</p>
+                            <input type="file" hidden accept=".pdf,.jpeg,.png,.jpg" id="fileID" name="file">
+                            <button type="button" class="btn" id="choose-file">Choose File</button>
+                        </div>
+
+                        <div class="image-container" style="display: none;">
+                            <h2>Selected File:</h2>
+                            <div class="image-box">
+                                <iframe id="zoom-iframe" frameborder="0" width="100%" height=" 500"></iframe>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn_submit">Upload</button>
+
+                        <div id="notification" class="notification"></div>
+                    </form>
+                    <!-- <div id="loading-indicator" style="display: none;">
+                        <div class="spinner"></div>
+                        <p id="processing-message" style="margin-top: 10px;">Processing file, please wait...</p>
+                    </div> -->
+
+                </div>
+                <!-- chatbot -->
+                <script src="{% static 'app.js' %}"></script>
+                <!-- <div class="container"> -->
+                <div class="chatbox">
+                    <div class="chatbox__support">
+                        <div class="chatbox__header">
+                            <div class="chatbox__image--header">
+                                <img src="https://img.icons8.com/ios/50/null/faq.png"/>
+
+                            </div>
+                            <div class="chatbox__content--header">
+                                <h4 class="chatbox__heading--header">Chat support</h4>
+                                <p class="chatbox__description--header">Cognitive Understanding</p>
+                            </div>
+                        </div>
+                        <div class="chatbox__messages">
+                            <div></div>
+                        </div>
+                        <div class="chatbox__footer">
+                            <input type="text" placeholder="Write a message...">
+                            <button class="chatbox__send--footer send__button">Send</button>
+                        </div>
+                    </div>
+                    <div class="chatbox__button">
+                        <button><img src="https://img.icons8.com/office/30/null/speech-bubble--v1.png"/></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="extracted-text">
+                {% if extracted_text %}
+                    <div id="output-section" class="loading">
+                        <div style="margin-top: 20px;"></div>
+                        <h1>Output:</h1>
+                        <div class="output-container">
+                            <div class="table-container">
+                                <h2>Extracted Text:</h2>
+                                <div style="margin-top: 20px;"></div>
+                                {% if extracted_title %}
+                                    <h3>Document Type:</h3>
+                                    <div style="margin-top: 10px;"></div>
+                                    {% for title in extracted_title %}
+                                        <h3>{{title}}</h3>
+                                    {% endfor %}
+                                {% endif %}
+                                <div style="margin-top: 20px;"></div>
+                                {% for text in extracted_text %}
+                                    <p>{{text}}</p>
+                                {% endfor %}
+                                <div style="margin-top: 20px;"></div>
+                                <h2>Extracted Tables:</h2>
+                                <div style="margin-top: 20px;"></div>
+                                {% for table in extracted_table %}
+                                    <div style="margin-top: 20px;"></div>
+                                    <p>{{ table|safe }}</p>
+                                {% endfor %}
+                                <h2>Extracted Codes:</h2>
+                                <div style="margin-top: 20px;"></div>
+                                {% for code in extracted_codes %}
+                                    <div style="margin-top: 20px;"></div>
+                                    <p>{{code}}</p>
+                                {% endfor %}
+                                
+                                <div style="margin-top: 30px;"></div>
+                                <h2>Extracted KIE:</h2>
+                                <div style="margin-top: 30px;"></div>
+                                <div id="extracted-text-table">
+                                    {{ extracted_text_table_html|safe }}
+                                </div>
+                            </div>
+
+                            <div class="image-container-output">
+                                <h2>Processed File</h2>
+                                <div style="margin-top: 20px;"></div>
+                                <div class="image-box-output">
+                                    <!-- <img id="uploaded-image" src="{% static image_path %}" alt="Uploaded Image" class="zoom-image"> -->
+                                    <embed
+                                        src="{% static image_path %}"
+                                        type="application/pdf"
+                                        width="100%"
+                                        height=" 500"/>
+                                </div>
+                                <div class = "trick-image-container" style="margin-top: 20px;">
+                                    <div style="margin-top: 30px;"></div>
+                                    <h2>Tick Mark Detection:</h2>
+                                    <div style="margin-top: 20px;"></div>
+                                    {% if tick_mark_image %}
+                                        <iframe src="{% static tick_mark_image %}" title="Tick Mark Image" frameborder="0" allowfullscreen></iframe>
+                                    {% else %}
+                                        <p>No tick mark image found.</p>
+                                    {% endif %}
+                                    <div style="margin-top: 10px;"></div>
+                                    <h3>Tick Mark Dataframe:</h3>
+                                    <div style="margin-top: 20px;"></div>
+                                    {% if tick_mark_df %}
+                                        {{ tick_mark_df|safe }}
+                                    {% else %}
+                                        <p> No tick mark dataframe found</p>
+                                    {% endif %}
+                                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Footer section -->
+        <div class="footer">
+            <div class="footer-content">
+                <div class="association">
+                    <!-- <div class="powered-by"> In association with:</div> -->
+                    <img
+                        src="{% static 'images/powered_logo.png' %}"
+                        alt="Powered by"
+                        class="powered-by-image">
+                </div>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/zooming/build/zooming.min.js"></script>
+
+    </body>
+</html>

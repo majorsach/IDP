@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8"
+  <meta name="viewport" content="width=device-width,  initial-scale=1.0">
+  <title>IDP Home</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-content">
+      <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo-image">
+      </div>
+      <div class="nav-links">
+        <a href="/" class="nav-link active">Home</a>
+        <a href="/process" class="nav-link">Process Documents</a>
+        <a href="/dashboard" class="nav-link">Master Document</a>
+        <a href="/training" class="nav-link">Training</a>
+      </div>
+    </div>
+  </div>  
+
+  <div class="container">
+    <div class="content">
+      <div class="content">
+        <h1>Master Document Generation</h1>
+        <p>Create a master document for your quick reference</p>
+        <div class="card">
+            <h3>Upload Files</h3>
+            <form
+                id="upload-form"
+                action="{% url 'master_document' %}"
+                method="post"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="drop_box">
+                    <header>
+                        <h4>Select File here</h4>
+                    </header>
+                    <p>Files Supported: PDF, JPEG ,JPG, PNG</p>
+                    <input type="file" hidden accept=".pdf,.jpeg,.png,.jpg" id="fileID" name="file" multiple>
+                    <button type="button" class="btn" id="choose-file">Choose File</button>
+                </div>
+
+                <div class="image-container" style="display: none;">
+                    <h2>Selected File:</h2>
+                    <div class="image-box">
+                        <iframe id="zoom-iframe" frameborder="0" width="100%" height=" 500"></iframe>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn_submit">Upload</button>
+
+                <div id="notification" class="notification"></div>
+            </form>
+            <!-- <div id="loading-indicator" style="display: none;">
+                <div class="spinner"></div>
+                <p id="processing-message" style="margin-top: 10px;">Processing file, please wait...</p>
+            </div> -->
+
+        </div>        
+      </div>
+      <div class="conent"  id="results">
+        <div class="image-box-output">
+          <!-- <img id="uploaded-image" src="{% static image_path %}" alt="Uploaded Image" class="zoom-image"> -->
+          <embed
+              src="{% static pdf_path %}"
+              type="application/pdf"
+              width="100%"
+              height=" 1000"/>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer section -->
+  <div class="footer">
+    <div class="footer-content">
+      <div class="association">
+        <!-- <div class="footer-text">In Association with:</div> -->
+        <!-- <div class="powered-by"> In association with:</div> -->
+          <img src="{% static 'images\powered_logo.png' %}" alt="Powered by" class="powered-by-image">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+<script src="{% static 'upload_master.js' %}"></script>
+<script type="text/javascript">
+  $("#results").hide();
+</script>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  {% load static %}
+  <meta charset="UTF-8"
+  <meta name="viewport" content="width=device-width,  initial-scale=1.0">
+  <title>IDP Home</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-content">
+      <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo-image">
+      </div>
+      <div class="nav-links">
+        <a href="/" class="nav-link active">Home</a>
+        <a href="/process" class="nav-link">Process Documents</a>
+        <a href="/dashboard" class="nav-link">Dashboard</a>
+        <a href="/training" class="nav-link">Training</a>
+      </div>
+    </div>
+  </div>  
+
+  <div class="container-home">
+    <div class="content-home">
+      <h1>Intelligent Document Processing</h1>
+        <div class="image-container-home">
+          <img src="{% static 'images/Online document-rafiki.png' %}" alt="Project Image" class="project-image">
+        </div>
+      <div class="text-container"></div>
+      <p>Intelligent Document Processing (IDP) revolutionizes document handling by automating data extraction, streamlining workflows, and enhancing accuracy. Harness the power of AI to transform your document management and unlock new levels of efficiency and productivity.</p>
+      <h1>IDP Features</h1>
+      <ul>
+        <li><strong>Automated Data Extraction:</strong> IDP automates the extraction of key information from documents, eliminating manual data entry.</li>
+        <li><strong>Document Classification:</strong> IDP automatically classifies documents based on their content, layout, or other criteria.</li>
+        <li><strong>Optical Character Recognition (OCR):</strong> IDP uses OCR technology to convert scanned or photographed text into machine-readable characters.</li>
+        <li><strong>Data Validation and Verification:</strong> IDP validates and verifies extracted data for accuracy and consistency.</li>
+        <li><strong>Exception Handling:</strong> IDP includes mechanisms to handle exceptions and errors encountered during data extraction or validation.</li>
+        <li><strong>Workflow Automation:</strong> IDP automates document workflows, routing documents to the appropriate departments or individuals.</li>
+        <li><strong>Reporting and Analytics:</strong> IDP provides insights and metrics on document processing performance and accuracy.</li>
+        <li><strong>Machine Learning Adaptability:</strong> IDP leverages machine learning algorithms that continuously learn and improve extraction accuracy over time.</li>
+        <li><strong>Integration with Existing Systems:</strong> IDP seamlessly integrates with existing systems, such as ERP or CMS, for efficient data transfer.</li>
+        <li><strong>Scalability and Performance:</strong> IDP is designed to handle high volumes of documents efficiently and can scale as business needs grow.</li>
+    </ul>
+  </div>
+</div>
+</div>
+  <!-- Footer section -->
+  <div class="footer">
+    <div class="footer-content">
+      <div class="association">
+        <!-- <div class="footer-text">In Association with:</div> -->
+        <!-- <div class="powered-by"> In association with:</div> -->
+          <img src="{% static 'images\powered_logo.png' %}" alt="Powered by" class="powered-by-image">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+</html>
